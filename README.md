@@ -6,11 +6,13 @@ Thanks to https://github.com/uwblueprint/bootcamp-pern-graphql for the basis for
 
 ## Tech Stack
 
-We will be using the PERN stack. These technologies are easy to learn, allow for fast development speeds, and are popularly used in Blueprint.
+We'll be using a React + GraphQL + Express stack. These technologies are easy to learn, allow for fast development speeds, and are popularly used in Blueprint.
+Note that we won't be using a persistent database as the focus of this demo
+is to illustrate how GraphQL queries are built.
 
-* Frontend: N/A
+* Frontend: React + Apollo Client
 * Backend: Node.js + Express.js + Apollo Server
-* Database: PostgreSQL
+* Database: N/A
 
 ## Setup
 
@@ -29,25 +31,17 @@ $ git clone https://github.com/uwblueprint/lightning-graphql.git
 $ cd lightning-graphql
 ```
 
-3. Fill in the environment variables in `/src/.env.sample`, then rename the file to `.env`. Tip: use `mv <old-filename> <new-filename>`
-```
-POSTGRES_DB=lightning-graphql
-POSTGRES_USER=<insert-username-of-your-choice>
-POSTGRES_PASSWORD=<insert-password-of-your-choice>
-DB_HOST=lightning-pern-graphql_db_1
-```
-
-4. Set `eraseDatabaseOnSync` to `true` in `/src/server.js` so the database will get seeded with test data when we run our application
-
-5. Run the application
+3. Run the application
 ```
 $ docker-compose up --build
 ```
-6. Set `eraseDatabaseOnSync` back to `false`.
+4. Go to http://localhost:5000/graphql in your browser and verify the playground is up and running:
 
-7. Go to http://localhost:5000/graphql in your browser and verify the playground is up and running:
+![Confirm the backend is up](docs/running_graphql_playground.png)
 
-![Confirm the application is up](docs/running_graphql_playground.png)
+5. Go to http://localhost:3000 in a separate tab and verify that the webapp is running:
+
+![Confirm the webapp is up](docs/running_webapp.png)
 
 ## Useful Commands for Development
 
@@ -76,7 +70,10 @@ Navigate to http://localhost:5000/graphql in a browser, this is our GraphQL Play
 This is the syntax for a GraphQL mutation:
 ```graphql
 mutation {
-  createRestaurant(name: "My New Restaurant", rating: 5) {
+  createRestaurant(restaurant: {
+    name: "My New Restaurant", 
+    rating: 5
+  }) {
     id
     name
     address
@@ -88,7 +85,10 @@ mutation {
 }
 ```
 
-The purpose of the first 2 lines should be pretty clear. What about the rest? The fields enclosed in the braces following `createRestaurant(name: "My New Restaurant", rating: 5)` specify the fields of the created restaurant object that we would like to retrieve. In this case, we want to retrieve all available fields (you can view the available fields in the "DOCS" tab).
+The purpose of the first 5 lines should be pretty clear. What about the rest? The fields enclosed in the braces following `createRestaurant(restaurant: {
+    name: "My New Restaurant", 
+    rating: 5
+  })` specify the fields of the created restaurant object that we would like to retrieve. In this case, we want to retrieve all available fields (you can view the available fields in the "DOCS" tab).
 
 Now, type the mutation out in the left panel of the GraphQL Playground (don't use copy & paste). You'll notice there's syntax highlighting and auto-completion! Press the run button to run the mutation.
 
@@ -104,7 +104,7 @@ A single group can contain multiple restaurants, and a single restaurant can be 
 
 A `RestaurantGroup` model should have these fields: `id`, `name`, `description`, `restaurantIds`*
 
-\* implementation dependent, but the `RestaurantGroup` needs some way of keeping track of its members. **Hint: look into Sequelize [associations](https://sequelize.org/master/manual/assocs.html)**.
+\* implementation dependent, but the `RestaurantGroup` needs some way of keeping track of its members. 
 
 1. Using the existing code as a template, create a GraphQL query and mutation for `RestaurantGroup`, enabling create and retrieve operations.
 

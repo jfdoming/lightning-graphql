@@ -1,7 +1,7 @@
 {
-  "name": "bootcamp-pern-graphql-backend",
+  "name": "bootcamp-graphql-backend",
   "version": "1.0.0",
-  "description": "PERN stack (GraphQL backend) starter-code, created for Blueprint bootcamp",
+  "description": "GraphQL starter-code, created for Blueprint bootcamp",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,6 +12,7 @@
   "dependencies": {
     "apollo-server": "^2.19.1",
     "apollo-server-express": "^2.19.1",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",

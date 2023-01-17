@@ -39,21 +39,19 @@ import restaurantService from "../services/restaurantService";
  */
 const restaurantResolvers = {
   Query: {
-    restaurant: async (_parent, { id }) => {
-      return await restaurantService.getRestaurant(id);
+    restaurant: (_parent, { id }) => {
+      return restaurantService.getRestaurant(id);
     },
-    restaurants: async () => {
-      return await restaurantService.getRestaurants();
+    restaurants: () => {
+      return restaurantService.getRestaurants();
     },
   },
   Mutation: {
-    createRestaurant: async (
-      _parent,
-      { name, address, type, budget, description, rating }
-    ) => {
+    createRestaurant: (_parent, { restaurant }) => {
+      const { name, address, type, budget, description, rating } = restaurant;
       validateRating(rating);
 
-      return await restaurantService.createRestaurant(
+      return restaurantService.createRestaurant(
         name,
         address,
         type,
@@ -62,13 +60,12 @@ const restaurantResolvers = {
         rating
       );
     },
-    updateRestaurant: async (
-      _parent,
-      { id, name, address, type, budget, description, rating }
-    ) => {
+    updateRestaurant: (_parent, { restaurant }) => {
+      const { id, name, address, type, budget, description, rating } =
+        restaurant;
       validateRating(rating);
 
-      return await restaurantService.updateRestaurant(
+      return restaurantService.updateRestaurant(
         id,
         name,
         address,
@@ -78,8 +75,8 @@ const restaurantResolvers = {
         rating
       );
     },
-    deleteRestaurant: async (_parent, { id }) => {
-      return await restaurantService.deleteRestaurant(id);
+    deleteRestaurant: (_parent, { id }) => {
+      return restaurantService.deleteRestaurant(id);
     },
   },
 };

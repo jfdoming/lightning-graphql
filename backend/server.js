@@ -15,15 +15,19 @@
  */
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
-
-import schema from "./graphql";
-import db, { sequelize } from "./models/index";
-import seedRestaurantData from "./seedRestaurantData";
+import schema from "./api/graphql";
+import cors from "cors";
 
 /* create our Express.js application */
 const app = express();
 /* create our Apollo Server, a data graph is constructed using the schema we defined in graphql.js */
 const server = new ApolloServer({ schema });
+
+/* CORS policy */
+const corsPolicy = {
+  origin: "http://localhost:3000",
+};
+app.use(cors(corsPolicy));
 
 /**
  * connect the Apollo Server to the HTTP framework of our Express.js app
@@ -34,31 +38,7 @@ const server = new ApolloServer({ schema });
  */
 server.applyMiddleware({ app, path: "/graphql" });
 
-/**
- * set eraseDatabaseOnSync = true if you want to seed the database or if you need to change the schema.
- * be careful since it will drop all existing tables
- *
- * typically migrations rather than sync() would be used to modify the DB schema, especially for production. That is because
- * they are safer and offer more fine-grained controls. However, for simplicity, we won't use migrations for bootcamp
- */
-const eraseDatabaseOnSync = false;
-
-/* sequelize (the variable) is an abstraction over our database connection */
-sequelize.sync({ force: eraseDatabaseOnSync }).then(async () => {
-  if (eraseDatabaseOnSync) {
-    seedDb();
-  }
-
-  /* start the server and have it listen on port 5000 */
-  app.listen({ port: 5000 }, () => {
-    console.info("Server is listening on port 5000!");
-  });
+/* start the server and have it listen on port 5000 */
+app.listen({ port: 5000 }, () => {
+  console.info("🚀 Server ready at port 5000!");
 });
-
-async function seedDb() {
-  seedRestaurantData.forEach(async (r) => {
-    await db.Restaurant.create(r);
-  });
-
-  console.info("Successfully seeded the database!");
-}

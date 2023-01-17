@@ -9,8 +9,8 @@
 import { makeExecutableSchema, gql } from "apollo-server-express";
 import { merge } from "lodash";
 
-import restaurantType from "./types/restaurantType";
-import restaurantResolvers from "./resolvers/restaurantResolvers";
+import restaurantTypes from "./restaurantTypes";
+import restaurantResolvers from "./restaurantResolvers";
 
 /**
  * base Query type definition, other queries extend this
@@ -20,9 +20,7 @@ import restaurantResolvers from "./resolvers/restaurantResolvers";
  * VS Code extension: https://marketplace.visualstudio.com/items?itemName=GraphQL.vscode-graphql
  */
 const query = gql`
-  type Query {
-    _empty: String
-  }
+  type Query
 `;
 
 /**
@@ -30,17 +28,15 @@ const query = gql`
  * Mutation is used for write operations
  */
 const mutation = gql`
-  type Mutation {
-    _empty: String
-  }
+  type Mutation
 `;
 
 /**
  * combine the typeDefs and resolvers
- * click into restaurantType and restaurantResolvers to learn more about typeDefs and resolvers
+ * click into restaurantTypes and restaurantResolvers to learn more about typeDefs and resolvers
  */
 const executableSchema = makeExecutableSchema({
-  typeDefs: [query, mutation, restaurantType],
+  typeDefs: [query, mutation, restaurantTypes],
   resolvers: merge(restaurantResolvers),
 });
 
