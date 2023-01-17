@@ -4,13 +4,15 @@ This repo contains the starter-code for our GraphQL activity.
 
 Thanks to https://github.com/uwblueprint/bootcamp-pern-graphql for the basis for this activity.
 
+Example queries/mutations can be found under `docs/GRAPHQL.md`
+
 ## Tech Stack
 
 We'll be using a React + GraphQL + Express stack. These technologies are easy to learn, allow for fast development speeds, and are popularly used in Blueprint.
 Note that we won't be using a persistent database as the focus of this demo
 is to illustrate how GraphQL queries are built.
 
-* Frontend: React + Apollo Client
+* Frontend: React + ChakraUI + Apollo Client
 * Backend: Node.js + Express.js + Apollo Server
 * Database: N/A
 
@@ -162,3 +164,10 @@ mutation {
 ```
 
 3. Modify the `deleteRestaurant` mutation logic so that deleting a restaurant will result in its removal from all the groups that it was part of
+
+## Resources if you want to learn more
+[GraphQL Explained in 100 seconds](https://www.youtube.com/watch?v=eIQh02xuVw4)
+
+[Apollo Client React Docs](https://www.apollographql.com/docs/react/)
+
+[Apollo Server Docs](https://www.apollographql.com/docs/apollo-server/)
