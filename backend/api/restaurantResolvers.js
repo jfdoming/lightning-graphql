@@ -31,7 +31,7 @@ import restaurantService from "../services/restaurantService";
  *   "rating": 2
  * }
  *
- * the resolver for the restaurant Query (lines 42-44) fetches the necessary data through restaurantService and serializes the requested fields for the response
+ * the resolver for the restaurant Query (lines 41-48) fetches the necessary data through restaurantService and serializes the requested fields for the response
  * (the serialization is automatically handled by Apollo)
  * note the arguments for the resolver function:
  * - the first, _parent, is currently unused, but it contains the previously resolved field
